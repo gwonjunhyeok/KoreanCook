@@ -2,23 +2,28 @@ using UnityEngine;
 
 public class StagePlayer : MonoBehaviour
 {
-    public float rotationSpeed = 90f; // 초당 회전 속도
+    public float rotationSpeed = 270f; // 초당 회전 속도
     private Quaternion initialRotation;
-
+    private Rigidbody rb;
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     void Start()
     {
         initialRotation = transform.rotation;
     }
 
-    void Update()
+    void LateUpdate()
     {
         PlayerMove();
     }
     void PlayerMove()
     {
+        Vector3 moveDir = Vector3.zero;
         float currentY = transform.eulerAngles.y;
         float initialY = initialRotation.eulerAngles.y;
-
+        moveDir = transform.forward;
         // 현재 회전량 (-180 ~ 180)
         float deltaY = Mathf.DeltaAngle(initialY, currentY);
 
@@ -31,7 +36,8 @@ public class StagePlayer : MonoBehaviour
             }
             else
             {
-                
+                Vector3 newPosition = rb.position + moveDir.normalized * 3f * Time.fixedDeltaTime;
+                rb.MovePosition(newPosition);
             }
         }
 
@@ -44,7 +50,8 @@ public class StagePlayer : MonoBehaviour
             }
             else
             {
-                
+                Vector3 newPosition = rb.position + moveDir.normalized * 3f * Time.fixedDeltaTime;
+                rb.MovePosition(newPosition);
             }
         }
     }
