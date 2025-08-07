@@ -37,7 +37,6 @@ public class Stage_Enter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // ★★★ 여기가 핵심 변경 부분입니다! ★★★
         // 만약 충돌한 오브젝트의 태그가 'oecdCountryTags' 배열에 포함되어 있다면,
         if (other.isTrigger && oecdCountryTags.Contains(other.tag))
         {
